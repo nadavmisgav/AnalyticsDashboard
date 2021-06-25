@@ -1,0 +1,39 @@
+@import "Colors.scss";
+
+.general-stats-container {
+  h4 {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    text-decoration: underline;
+    text-transform: uppercase;
+    margin: 0.8rem 0;
+    letter-spacing: 0.125rem;
+  }
+
+  .stat-row {
+    opacity: 80%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+
+    i {
+      flex: 1;
+      //   border-bottom: 1px dashed $color-text;
+    }
+  }
+}
+
+.add-button {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  .MuiFab-root {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background-color: $color-accent-200 !important;
+  }
+}

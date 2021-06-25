@@ -1,8 +1,54 @@
-import React from 'react';
-import './App.scss';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-function App() {
-  return (<h1>Hello world</h1>);
+import "./App.scss";
+
+import Dashboard from "./Dashboard";
+
+export default function App() {
+  return (
+    <>
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/research">Research</Link>
+            </li>
+            <li>
+              <Link to="/following">Following</Link>
+            </li>
+            <li>
+              <Link to="/reports">Reports</Link>
+            </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
+          </ul>
+        </nav>
+        <main>
+          <Switch>
+            <Route exact path="/">
+              <Dashboard />
+            </Route>
+            <Route exact path="/research">
+              <h1>Research</h1>
+            </Route>
+
+            <Route exact path="/following">
+              <h1>Following</h1>
+            </Route>
+            <Route exact path="/reports">
+              <h1>Reports</h1>
+            </Route>
+            <Route exact path="/settings">
+              <h1>Settings</h1>
+            </Route>
+          </Switch>
+        </main>
+      </Router>
+    </>
+  );
 }
-
-export default App;
