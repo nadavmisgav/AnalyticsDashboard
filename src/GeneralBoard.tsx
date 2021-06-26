@@ -21,7 +21,6 @@ const GeneralBoard = () => {
       <div className="general-stats-container">
         <h4>
           <span>Wall street</span>
-          <WatchLaterIcon style={{ color: wallstreetOpen ? "green" : "red" }} />
         </h4>
         <div className="stat-row">
           <span>Holdings</span>
@@ -31,13 +30,15 @@ const GeneralBoard = () => {
           <span>Daily earnings</span>
           <i></i> <span>104$</span>
         </div>
-        <p>Currently closed</p>
+        <div className="opening-hours">
+          <WatchLaterIcon style={{ color: wallstreetOpen ? "green" : "red" }} />
+          <span>Currently closed</span>
+        </div>
       </div>
       <Divider />
       <div className="general-stats-container">
         <h4>
           <span>Tel Aviv</span>
-          <WatchLaterIcon style={{ color: telavivOpen ? "green" : "red" }} />
         </h4>
         <div className="stat-row">
           <span>Holdings</span>
@@ -47,7 +48,10 @@ const GeneralBoard = () => {
           <span>Daily earnings</span>
           <i></i> <span>104₪</span>
         </div>
-        <p>Currently closed</p>
+        <div className="opening-hours">
+          <WatchLaterIcon style={{ color: telavivOpen ? "green" : "red" }} />
+          <span>Currently closed</span>
+        </div>
       </div>
       <Divider />
       <div className="general-stats-container">

@@ -4,6 +4,7 @@ import {
   Legend,
   Line,
   LineChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -13,66 +14,72 @@ import "./GraphBoard.scss";
 
 const data = [
   {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    name: "20/6",
+    wallStreet: 4000,
+    telAviv: 2400,
   },
   {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    name: "21/6",
+    wallStreet: 3000,
+    telAviv: 1398,
   },
   {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    name: "22/6",
+    wallStreet: 2000,
+    telAviv: 9800,
   },
   {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    name: "23/6",
+    wallStreet: 2780,
+    telAviv: 3908,
   },
   {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    name: "24/6",
+    wallStreet: 1890,
+    telAviv: 4800,
   },
   {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    name: "25/6",
+    wallStreet: 2390,
+    telAviv: 3800,
   },
   {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    name: "26/6",
+    wallStreet: 3490,
+    telAviv: 4300,
   },
 ];
 
 const GraphBoard = () => {
   return (
-    <div className="content-container graph-board ">
-      <LineChart
-        width={730}
-        height={250}
-        data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-      </LineChart>
+    <div className="content-container graph-board">
+      <h2>Holdings</h2>
+      <div style={{ width: "100%", height: 350 }}>
+        <ResponsiveContainer>
+          <LineChart
+            data={data}
+            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="telAviv"
+              stroke="#bb86fc"
+              name="Tel Aviv"
+            />
+            <Line
+              type="monotone"
+              dataKey="wallStreet"
+              stroke="#03dac5"
+              name="Wall Street"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
