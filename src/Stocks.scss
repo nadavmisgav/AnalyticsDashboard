@@ -1,0 +1,58 @@
+@import "./Colors.scss";
+
+.stocks-container {
+  margin-bottom: 4rem;
+  h2 {
+    text-decoration: underline;
+    text-decoration-color: $color-accent-200;
+    vertical-align: middle;
+  }
+
+  .header {
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .MuiButton-contained {
+      background-color: $color-accent-200 !important;
+    }
+  }
+}
+
+.stock {
+  display: flex;
+  flex-grow: 1;
+  padding: 1.2rem 0.8rem;
+  background-color: $color-700;
+  align-items: center;
+  border: 1px solid $color-800;
+
+  .stock-info {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  span {
+    margin-right: 0.4rem;
+  }
+
+  .stock-stats {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 1rem;
+
+    small.description {
+      position: absolute;
+      top: -1.1rem;
+    }
+  }
+  .holding {
+    margin-left: 1rem;
+  }
+}

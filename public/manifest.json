@@ -1,6 +1,6 @@
 {
   "short_name": "Analytics Dashboard",
-  "name": "Analytics Dashboard for monitoring different stocks",
+  "name": "Analytics Dashboard",
   "icons": [
     {
       "src": "icons/manifest-icon-192.png",

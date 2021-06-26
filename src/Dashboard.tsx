@@ -1,6 +1,8 @@
 import GeneralBoard from "./GeneralBoard";
 import GraphBoard from "./GraphBoard";
 import "./Dashboard.scss";
+import Stocks from "./Stocks";
+import Divider from "@material-ui/core/Divider";
 
 const Dashboard = () => {
   return (
@@ -9,6 +11,8 @@ const Dashboard = () => {
       <div className="boards">
         <GeneralBoard />
         <GraphBoard />
+        <Stocks name="Wall Street" />
+        <Stocks name="Tel Aviv" />
       </div>
     </>
   );
