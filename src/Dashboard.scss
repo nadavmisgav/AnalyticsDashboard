@@ -1,3 +1,34 @@
 h1 {
   text-align: center;
+  margin: 4rem 0;
+}
+
+.boards {
+  position: relative;
+}
+
+.general-panels {
+  display: flex;
+  flex-wrap: wrap;
+  // align-items: ;
+  justify-content: space-around;
+
+  .general-panel {
+    min-width: 18rem;
+    max-width: 50rem;
+    flex-grow: 1;
+    flex-basis: 50%;
+    h2 {
+      margin: 0;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .general-panels {
+    .general-panel {
+      max-width: 35rem;
+    }
+  }
 }

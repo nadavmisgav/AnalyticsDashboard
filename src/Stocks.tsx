@@ -5,25 +5,6 @@ import AddIcon from "@material-ui/icons/Add";
 
 import "./Stocks.scss";
 
-const createStock = (
-  currency,
-  name,
-  symbol,
-  target,
-  amount,
-  value,
-  earnings
-) => {
-  return { currency, name, symbol, target, amount, value, earnings };
-};
-
-const stock_data = [
-  createStock("$", "Amazon", "AMZN", 1000, 10, 2334, 5),
-  createStock("$", "Amazon", "AMZN", 1000, 10, 2334, 5),
-  createStock("$", "Amazon", "AMZN", 1000, 10, 2334, 5),
-  createStock("$", "Amazon", "AMZN", 1000, 10, 2334, 5),
-];
-
 const Stock = ({ currency, name, symbol, target, amount, value, earnings }) => {
   return (
     <div className="stock">
@@ -53,7 +34,7 @@ const Stock = ({ currency, name, symbol, target, amount, value, earnings }) => {
   );
 };
 
-const Stocks = ({ name }) => {
+const Stocks = ({ name, stock_data }) => {
   const stockObjects = stock_data.map((stock) => {
     return <Stock key={stock.name} {...stock} />;
   });

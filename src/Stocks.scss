@@ -1,7 +1,15 @@
 @import "./Colors.scss";
 
 .stocks-container {
+  // display: flex;
+  // content: center;
+  // flex-direction: column;
+  position: relative;
+  // right: 50%;
+  margin: 0 auto;
   margin-bottom: 4rem;
+  max-width: 80rem;
+
   h2 {
     text-decoration: underline;
     text-decoration-color: $color-accent-200;

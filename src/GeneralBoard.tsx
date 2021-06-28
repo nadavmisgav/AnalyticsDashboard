@@ -11,7 +11,7 @@ const GeneralBoard = () => {
   const telavivOpen: boolean = false;
 
   return (
-    <div className="content-container">
+    <div className="content-container general-panel">
       <div className="add-button">
         <Fab aria-label="add" size="medium">
           <AddIcon />

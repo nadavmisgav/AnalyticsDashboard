@@ -10,8 +10,6 @@ import {
   YAxis,
 } from "recharts";
 
-import "./GraphBoard.scss";
-
 const data = [
   {
     name: "20/6",
@@ -52,9 +50,9 @@ const data = [
 
 const GraphBoard = () => {
   return (
-    <div className="content-container graph-board">
+    <div className="content-container general-panel">
       <h2>Holdings</h2>
-      <div style={{ width: "100%", height: 350 }}>
+      <div style={{ height: 350 }}>
         <ResponsiveContainer>
           <LineChart
             data={data}
