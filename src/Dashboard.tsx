@@ -2,6 +2,7 @@ import GeneralBoard from "./GeneralBoard";
 import GraphBoard from "./GraphBoard";
 import "./Dashboard.scss";
 import Stocks from "./Stocks";
+import React from "react";
 
 const createStock = (
   currency,
@@ -23,7 +24,7 @@ const stock_data = [
 ];
 
 const Dashboard = () => {
-  return (
+    return (
     <>
       <h1>Dashboard</h1>
       <div className="boards">

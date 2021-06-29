@@ -1,0 +1,25 @@
+@import "./Colors.scss";
+
+.stock-modal {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+
+  .MuiButton-contained {
+    background-color: $color-accent-200 !important;
+    
+    &.cancel {
+      
+      background-color: $color-danger !important;
+      }
+    
+  }
+}
+
+.stock-modal > div {
+  position: absolute;
+  width: 100%;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+  height: fit-content !important;
+  background-color: $color-600 !important;
+}
