@@ -9,6 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
@@ -32,6 +33,10 @@ interface Transaction {
   totalPrice: string;
   date: string;
 }
+const stocks = [
+  { name: "The Shawshank Redemption" },
+  { name: "Monty Python and the Holy Grail" },
+];
 
 function AddTransaction({ open, setOpen }) {
   let [transaction, setTransaction] = useState({
@@ -72,6 +77,8 @@ function AddTransaction({ open, setOpen }) {
         [prop]: event.target.value,
         totalPrice: newTotalPrice.toString(),
       });
+
+      console.log(transaction);
     };
 
   return (
@@ -79,19 +86,24 @@ function AddTransaction({ open, setOpen }) {
       <div>
         <h2>Record Transaction</h2>
         <div className="modal-form">
+          <Autocomplete
+            id="stock-name-autocomplete"
+            options={stocks.map((stock) => stock.name)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                id="stock-name"
+                label="Stock"
+                value={transaction.stock}
+                onChange={handleChange("stock")}
+              />
+            )}
+          />
           <TextField
             id="transaction-date"
             type="date"
             value={transaction.date}
             onChange={handleChange("date")}
-          />
-
-          <TextField
-            id="stock-name"
-            label="Stock"
-            type="search"
-            value={transaction.stock}
-            onChange={handleChange("stock")}
           />
           <TextField
             id="amount"
