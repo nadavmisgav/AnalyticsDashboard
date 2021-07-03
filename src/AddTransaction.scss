@@ -4,22 +4,100 @@
   background-color: rgba(0, 0, 0, 0.5) !important;
 
   .MuiButton-contained {
-    background-color: $color-accent-200 !important;
-    
+    background-color: $color-accent-200;
+    &:hover {
+      background-color: $color-accent-300;
+    }
+
     &.cancel {
-      
       background-color: $color-danger !important;
+      &:hover {
+        background-color: rgba($color-danger, 0.8) !important;
       }
-    
+    }
   }
+
+  .MuiFormLabel-root {
+    color: rgba($color-text, 0.6);
+  }
+
+  .MuiFormLabel-root.Mui-focused {
+    color: $color-accent-200;
+  }
+
+  .MuiInput-underline::after {
+    border-color: $color-accent-200;
+  }
+
+  .MuiTypography-colorTextSecondary {
+    color: rgba($color-text, 0.6);
+  }
+
+  input {
+    color: $color-text !important;
+  }
+  .MuiInputBase-input {
+    color: $color-text !important;
+  }
+}
+
+.MuiPaper-root {
+  color: $color-text !important;
+  background-color: $color-500 !important;
+}
+
+.MuiSelect-icon {
+  color: rgba($color-text, 0.6) !important;
 }
 
 .stock-modal > div {
   position: absolute;
   width: 100%;
+  max-width: 50rem;
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%);
   height: fit-content !important;
   background-color: $color-600 !important;
+
+  h2 {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.125rem;
+    margin-bottom: 0;
+  }
+}
+
+.modal-form {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 1.5rem 1rem;
+
+  & > * {
+    flex-basis: 49%;
+    max-width: 20rem;
+    margin: 0.5rem 0.1rem;
+  }
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  button {
+    margin: 1rem 1rem;
+    // color: $color-text !important;
+  }
+}
+
+@media screen and (min-width: 50rem) {
+  .stock-modal > div {
+    border-radius: 1rem;
+  }
+
+  .modal-form {
+    padding: 3rem 2rem;
+  }
 }
