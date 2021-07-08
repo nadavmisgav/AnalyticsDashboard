@@ -33,10 +33,10 @@ interface Transaction {
   totalPrice: string;
   date: string;
 }
-const stocks = [
-  { name: "The Shawshank Redemption" },
-  { name: "Monty Python and the Holy Grail" },
-];
+
+interface Stock {
+  name: string;
+}
 
 function AddTransaction({ open, setOpen }) {
   let [transaction, setTransaction] = useState({
@@ -47,6 +47,13 @@ function AddTransaction({ open, setOpen }) {
     totalPrice: "",
     date: "",
   });
+
+  let [stocks, setStocks] = useState([
+    // { name: "Amazon" },
+    // { name: "Alphabet" },
+  ] as Stock[]);
+
+  let [loadingStocks, setLoadingStocks] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -63,13 +70,17 @@ function AddTransaction({ open, setOpen }) {
   const handleChange =
     (prop: keyof Transaction) => (event: React.ChangeEvent<any>) => {
       let newTotalPrice: number = parseFloat(transaction.totalPrice);
-      if (prop == "amount") {
+      if (prop === "amount") {
         newTotalPrice =
           parseInt(event.target.value) * parseFloat(transaction.stockPrice);
       }
-      if (prop == "stockPrice") {
+
+      if (prop === "stockPrice") {
         newTotalPrice =
           parseFloat(event.target.value) * parseInt(transaction.amount);
+      }
+
+      if (prop === "stock") {
       }
 
       setTransaction({
@@ -84,11 +95,11 @@ function AddTransaction({ open, setOpen }) {
   return (
     <Modal open={open} onClose={handleClose} className="stock-modal">
       <div>
-        <h2>Record Transaction</h2>
         <div className="modal-form">
           <Autocomplete
             id="stock-name-autocomplete"
             options={stocks.map((stock) => stock.name)}
+            loading={loadingStocks}
             renderInput={(params) => (
               <TextField
                 {...params}
