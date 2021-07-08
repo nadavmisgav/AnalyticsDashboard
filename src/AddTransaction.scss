@@ -41,6 +41,14 @@
   }
 }
 
+.MuiAutocomplete-loading {
+  color: $color-text !important;
+}
+
+.MuiAutocomplete-noOptions {
+  color: $color-text !important;
+}
+
 .MuiPaper-root {
   color: $color-text !important;
   background-color: $color-500 !important;
