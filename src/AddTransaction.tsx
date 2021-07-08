@@ -14,6 +14,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 
+import axios from "axios";
+
 import "./AddTransaction.scss";
 
 // interface Transaction {
@@ -24,6 +26,9 @@ import "./AddTransaction.scss";
 //   totalPrice: number;
 //   date: null | Date;
 // }
+
+const API_BASE_URL = "http://localhost:8000";
+const STOCK_API_URL = `${API_BASE_URL}/stocks`;
 
 interface Transaction {
   type: string;
@@ -56,7 +61,9 @@ function AddTransaction({ open, setOpen }) {
   let [loadingStocks, setLoadingStocks] = useState(false);
 
   const handleClose = () => {
+    setStocks([] as Stock[]);
     setOpen(false);
+    setLoadingStocks(false);
     setTransaction({
       type: "",
       stock: "",
@@ -65,6 +72,34 @@ function AddTransaction({ open, setOpen }) {
       totalPrice: "",
       date: "",
     });
+  };
+
+  const searchStocks = (name: string) => {
+    axios.get(`${STOCK_API_URL}/search/${name}?limit=10`).then((res) => {
+      const stocks_data: Stock[] = res.data.map((stock: any) => {
+        return {
+          name: stock?.symbol,
+        };
+      });
+      setStocks(
+        stocks_data.filter((stock: Stock) => {
+          return stock.name != undefined;
+        })
+      );
+
+      setLoadingStocks(false);
+    });
+  };
+
+  const onStockChange = (event: React.ChangeEvent<any>) => {
+    const stock_name = event.target.value;
+
+    if (stock_name === "") {
+      setStocks([] as Stock[]);
+    } else {
+      setLoadingStocks(true);
+      searchStocks(stock_name);
+    }
   };
 
   const handleChange =
@@ -80,16 +115,11 @@ function AddTransaction({ open, setOpen }) {
           parseFloat(event.target.value) * parseInt(transaction.amount);
       }
 
-      if (prop === "stock") {
-      }
-
       setTransaction({
         ...transaction,
         [prop]: event.target.value,
         totalPrice: newTotalPrice.toString(),
       });
-
-      console.log(transaction);
     };
 
   return (
@@ -98,15 +128,17 @@ function AddTransaction({ open, setOpen }) {
         <div className="modal-form">
           <Autocomplete
             id="stock-name-autocomplete"
-            options={stocks.map((stock) => stock.name)}
+            options={stocks}
+            getOptionLabel={(stock) => stock.name}
+            onInputChange={onStockChange}
             loading={loadingStocks}
             renderInput={(params) => (
               <TextField
                 {...params}
                 id="stock-name"
                 label="Stock"
-                value={transaction.stock}
                 onChange={handleChange("stock")}
+                value={transaction.stock}
               />
             )}
           />
