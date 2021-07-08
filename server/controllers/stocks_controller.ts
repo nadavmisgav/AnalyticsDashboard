@@ -1,7 +1,6 @@
 import express from 'express';
-import { getStocks } from "./stocks_data_service";
+import { getStocks } from "../services/yahoo_finance_service";
 
-// XXX: check req.params validity
 export const searchStocks = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { stock_name } = req?.params;
     let limit: number = 10  // default
@@ -14,8 +13,8 @@ export const searchStocks = async (req: express.Request, res: express.Response, 
         const data = await getStocks(stock_name, limit);
         res.send(data).status(200);
         next();
-  } catch(e) {
+    } catch (e) {
         console.log(e.message);
         res.sendStatus(500) && next(e);
-  }
+    }
 }

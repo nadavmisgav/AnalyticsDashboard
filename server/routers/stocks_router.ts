@@ -1,5 +1,5 @@
 import express, {Router} from 'express';
-import { searchStocks } from './stocks_controller';
+import { searchStocks } from '../controllers/stocks_controller';
 
 export const stocks_router: Router = express.Router();
 

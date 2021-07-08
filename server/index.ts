@@ -1,6 +1,6 @@
 import express, {Express} from 'express';
 
-import { stocks_router } from './stocks_router';
+import { stocks_router } from './routers/stocks_router';
 
 const app: Express = express();
 const PORT: number = 8000;
