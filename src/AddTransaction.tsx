@@ -40,7 +40,9 @@ interface Transaction {
 }
 
 interface Stock {
+  symbol: string;
   name: string;
+  long_name: string;
 }
 
 function AddTransaction({ open, setOpen }) {
@@ -75,19 +77,28 @@ function AddTransaction({ open, setOpen }) {
   };
 
   const searchStocks = (name: string) => {
-    axios.get(`${STOCK_API_URL}/search/${name}?limit=10`).then((res) => {
+    return axios.get(`${STOCK_API_URL}/search/${name}?limit=10`).then((res) => {
       const stocks_data: Stock[] = res.data.map((stock: any) => {
         return {
-          name: stock?.symbol,
+          symbol: stock?.symbol,
+          name: stock?.shortname,
+          long_name: stock?.longname,
         };
       });
       setStocks(
         stocks_data.filter((stock: Stock) => {
-          return stock.name != undefined;
+          return stock.name !== undefined;
         })
       );
+    });
+  };
 
-      setLoadingStocks(false);
+  const filterStockOptions = (options: Stock[], { inputValue }) => {
+    return options.filter((option) => {
+      return (
+        option.symbol.toLowerCase().includes(inputValue.toLowerCase()) ||
+        option.name.toLowerCase().includes(inputValue.toLowerCase())
+      );
     });
   };
 
@@ -98,7 +109,7 @@ function AddTransaction({ open, setOpen }) {
       setStocks([] as Stock[]);
     } else {
       setLoadingStocks(true);
-      searchStocks(stock_name);
+      searchStocks(stock_name).then(() => setLoadingStocks(false));
     }
   };
 
@@ -129,17 +140,13 @@ function AddTransaction({ open, setOpen }) {
           <Autocomplete
             id="stock-name-autocomplete"
             options={stocks}
-            getOptionLabel={(stock) => stock.name}
+            getOptionLabel={(stock) => stock.symbol}
             onInputChange={onStockChange}
+            filterOptions={filterStockOptions}
+            // onChange={}
             loading={loadingStocks}
             renderInput={(params) => (
-              <TextField
-                {...params}
-                id="stock-name"
-                label="Stock"
-                onChange={handleChange("stock")}
-                value={transaction.stock}
-              />
+              <TextField {...params} id="stock-name" label="Stock" />
             )}
           />
           <TextField
