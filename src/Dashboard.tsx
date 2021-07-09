@@ -38,6 +38,17 @@ const Dashboard = () => {
   const [ta_stocks, setTAStocks] = useState([] as StockQuote[]);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      getQuoteStocks(owned_ws_stocks, setWSStocks);
+      getQuoteStocks(owned_ta_stocks, setTAStocks);
+    }, 60);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  useEffect(() => {
     getQuoteStocks(owned_ws_stocks, setWSStocks);
   }, [owned_ws_stocks]);
 

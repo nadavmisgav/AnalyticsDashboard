@@ -27,7 +27,7 @@ const Stock = ({ currency, name, symbol, target, amount, value, price }) => {
         </div>
         <div className="holding">
           <span>
-            {value}
+            {value.toFixed(2)}
             {currency}
           </span>
           <small style={{ color: earningsColor }}>
