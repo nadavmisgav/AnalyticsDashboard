@@ -14,18 +14,11 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
 
+import { Stock } from "./StockInterface";
+
 import axios from "axios";
 
 import "./AddTransaction.scss";
-
-// interface Transaction {
-//   type: "" | "buy" | "sell";
-//   stock: string;
-//   amount: number;
-//   stockPrice: number;
-//   totalPrice: number;
-//   date: null | Date;
-// }
 
 const API_BASE_URL = "http://localhost:8000";
 const STOCK_API_URL = `${API_BASE_URL}/stocks`;
@@ -39,13 +32,7 @@ interface Transaction {
   date: string;
 }
 
-interface Stock {
-  symbol: string;
-  name: string;
-  long_name: string;
-}
-
-function AddTransaction({ open, setOpen }) {
+function AddTransaction({ open, setOpen, stocks, setStocks }) {
   let [transaction, setTransaction] = useState({
     type: "",
     stock: "",
@@ -55,15 +42,12 @@ function AddTransaction({ open, setOpen }) {
     date: "",
   });
 
-  let [stocks, setStocks] = useState([
-    // { name: "Amazon" },
-    // { name: "Alphabet" },
-  ] as Stock[]);
-
+  let [stockOptions, setStockOptions] = useState([] as Stock[]);
   let [loadingStocks, setLoadingStocks] = useState(false);
+  let [selectedStock, setSelectedStock] = useState({} as Stock);
 
   const handleClose = () => {
-    setStocks([] as Stock[]);
+    setStockOptions([] as Stock[]);
     setOpen(false);
     setLoadingStocks(false);
     setTransaction({
@@ -85,7 +69,7 @@ function AddTransaction({ open, setOpen }) {
           long_name: stock?.longname,
         };
       });
-      setStocks(
+      setStockOptions(
         stocks_data.filter((stock: Stock) => {
           return stock.name !== undefined;
         })
@@ -102,15 +86,23 @@ function AddTransaction({ open, setOpen }) {
     });
   };
 
-  const onStockChange = (event: React.ChangeEvent<any>) => {
-    const stock_name = event.target.value;
-
-    if (stock_name === "") {
-      setStocks([] as Stock[]);
+  const onStockChange = (
+    event: React.ChangeEvent<any>,
+    value: string | null
+  ) => {
+    if (value === "") {
+      setStockOptions([] as Stock[]);
     } else {
       setLoadingStocks(true);
-      searchStocks(stock_name).then(() => setLoadingStocks(false));
+      searchStocks(value as string).then(() => setLoadingStocks(false));
     }
+  };
+
+  const onStockSelect = (
+    event: React.ChangeEvent<any>,
+    value: Stock | null
+  ) => {
+    setSelectedStock(value as Stock);
   };
 
   const handleChange =
@@ -133,17 +125,32 @@ function AddTransaction({ open, setOpen }) {
       });
     };
 
+  const submitTransaction = (event: React.ChangeEvent<any>) => {
+    const new_stocks: Stock[] = stocks.concat({
+      amount: transaction.amount,
+      price: transaction.stockPrice,
+      symbol: selectedStock.symbol,
+      name: selectedStock.name,
+      long_name: selectedStock.long_name,
+    });
+    setStocks(new_stocks);
+    handleClose();
+  };
+
   return (
     <Modal open={open} onClose={handleClose} className="stock-modal">
       <div>
         <div className="modal-form">
           <Autocomplete
             id="stock-name-autocomplete"
-            options={stocks}
-            getOptionLabel={(stock) => stock.symbol}
+            options={stockOptions}
+            getOptionLabel={(stock: Stock) => stock.symbol}
+            getOptionSelected={(option: Stock, value: Stock) =>
+              option.symbol === value.symbol
+            }
             onInputChange={onStockChange}
             filterOptions={filterStockOptions}
-            // onChange={}
+            onChange={onStockSelect}
             loading={loadingStocks}
             renderInput={(params) => (
               <TextField {...params} id="stock-name" label="Stock" />
@@ -195,7 +202,7 @@ function AddTransaction({ open, setOpen }) {
           </FormControl>
         </div>
         <div className="form-buttons">
-          <Button variant="contained">
+          <Button variant="contained" onClick={submitTransaction}>
             <CheckIcon />
           </Button>
           <Button variant="contained" className="cancel" onClick={handleClose}>

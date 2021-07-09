@@ -6,7 +6,9 @@ import AddIcon from "@material-ui/icons/Add";
 import "./Stocks.scss";
 import AddTransaction from "./AddTransaction";
 
-const Stock = ({ currency, name, symbol, target, amount, value, earnings }) => {
+const Stock = ({ currency, name, symbol, target, amount, value, price }) => {
+  const earnings = (100.0 * (value - price)) / price;
+  const earningsColor = earnings > 0 ? "green" : "red";
   return (
     <div className="stock">
       <span>{name}</span>
@@ -28,14 +30,16 @@ const Stock = ({ currency, name, symbol, target, amount, value, earnings }) => {
             {value}
             {currency}
           </span>
-          <small>({earnings}%)</small>
+          <small style={{ color: earningsColor }}>
+            ({earnings.toFixed(2)}%)
+          </small>
         </div>
       </div>
     </div>
   );
 };
 
-const Stocks = ({ name, stock_data }) => {
+const Stocks = ({ name, currency, stock_data, stocks, setStocks }) => {
   let [openStockModal, setOpenStockModal] = useState(false);
 
   const handleOpenStockModal = (event) => {
@@ -43,7 +47,7 @@ const Stocks = ({ name, stock_data }) => {
   };
 
   const stockObjects = stock_data.map((stock) => {
-    return <Stock key={stock.name} {...stock} />;
+    return <Stock key={stock.symbol} {...stock} />;
   });
 
   return (
@@ -63,8 +67,16 @@ const Stocks = ({ name, stock_data }) => {
           </div>
         </div>
         <div className="stocks">{stockObjects}</div>
+        <div className="stocks">
+          {stock_data.length === 0 && <h3>No stocks</h3>}
+        </div>
       </div>
-      <AddTransaction open={openStockModal} setOpen={setOpenStockModal} />
+      <AddTransaction
+        open={openStockModal}
+        setOpen={setOpenStockModal}
+        stocks={stocks}
+        setStocks={setStocks}
+      />
     </>
   );
 };
