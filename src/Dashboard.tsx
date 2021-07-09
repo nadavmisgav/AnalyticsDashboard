@@ -41,7 +41,7 @@ const Dashboard = () => {
     const interval = setInterval(() => {
       getQuoteStocks(owned_ws_stocks, setWSStocks);
       getQuoteStocks(owned_ta_stocks, setTAStocks);
-    }, 60);
+    }, 1000 * 60);
 
     return () => {
       clearInterval(interval);
