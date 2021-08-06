@@ -33,15 +33,7 @@ interface Transaction {
 }
 
 function AddTransaction({ open, setOpen, stocks, setStocks, currency }) {
-  let [transaction, setTransaction] = useState({
-    type: "",
-    stock: "",
-    amount: "",
-    stockPrice: "",
-    totalPrice: "",
-    date: "",
-  });
-
+  let [transaction, setTransaction] = useState({} as Transaction);
   let [stockOptions, setStockOptions] = useState([] as Stock[]);
   let [loadingStocks, setLoadingStocks] = useState(false);
   let [selectedStock, setSelectedStock] = useState({} as Stock);
@@ -50,14 +42,7 @@ function AddTransaction({ open, setOpen, stocks, setStocks, currency }) {
     setStockOptions([] as Stock[]);
     setOpen(false);
     setLoadingStocks(false);
-    setTransaction({
-      type: "",
-      stock: "",
-      amount: "",
-      stockPrice: "",
-      totalPrice: "",
-      date: "",
-    });
+    setTransaction({} as Transaction);
   };
 
   const searchStocks = (name: string) => {
