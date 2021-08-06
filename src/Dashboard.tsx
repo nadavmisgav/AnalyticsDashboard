@@ -32,11 +32,13 @@ async function getQuoteStocks(stocks: Stock[], setStocks: React.Dispatch<any>) {
 }
 
 const Dashboard = () => {
+  // TODO: add to firebase
   const [owned_ws_stocks, setOwnedWSStocks] = useState([] as Stock[]);
   const [owned_ta_stocks, setOwnedTAStocks] = useState([] as Stock[]);
   const [ws_stocks, setWSStocks] = useState([] as StockQuote[]);
   const [ta_stocks, setTAStocks] = useState([] as StockQuote[]);
 
+  // Refresh stock data every minute
   useEffect(() => {
     const interval = setInterval(() => {
       getQuoteStocks(owned_ws_stocks, setWSStocks);
@@ -48,6 +50,7 @@ const Dashboard = () => {
     };
   });
 
+  // Get stock data on change
   useEffect(() => {
     getQuoteStocks(owned_ws_stocks, setWSStocks);
   }, [owned_ws_stocks]);
@@ -78,6 +81,7 @@ const Dashboard = () => {
             stocks={owned_ta_stocks}
             stock_data={ta_stocks}
             setStocks={setOwnedTAStocks}
+            disabled
           />
         </div>
       </div>

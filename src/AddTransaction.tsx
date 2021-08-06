@@ -32,7 +32,7 @@ interface Transaction {
   date: string;
 }
 
-function AddTransaction({ open, setOpen, stocks, setStocks }) {
+function AddTransaction({ open, setOpen, stocks, setStocks, currency }) {
   let [transaction, setTransaction] = useState({
     type: "",
     stock: "",
@@ -176,7 +176,9 @@ function AddTransaction({ open, setOpen, stocks, setStocks }) {
               type="number"
               value={transaction.stockPrice}
               onChange={handleChange("stockPrice")}
-              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end">{currency}</InputAdornment>
+              }
             />
           </FormControl>
           <FormControl>
@@ -196,7 +198,9 @@ function AddTransaction({ open, setOpen, stocks, setStocks }) {
               id="total-price"
               type="text"
               value={transaction.totalPrice}
-              endAdornment={<InputAdornment position="end">$</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end">{currency}</InputAdornment>
+              }
               readOnly
             />
           </FormControl>

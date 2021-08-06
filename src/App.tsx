@@ -5,29 +5,35 @@ import "./App.scss";
 
 import Dashboard from "./Dashboard";
 
+function NavBar(props: any) {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">Dashboard</Link>
+        </li>
+        <li>
+          <Link to="/research">Research</Link>
+        </li>
+        <li>
+          <Link to="/following">Following</Link>
+        </li>
+        <li>
+          <Link to="/reports">Reports</Link>
+        </li>
+        <li>
+          <Link to="/settings">Settings</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
 export default function App() {
   return (
     <>
       <Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/research">Research</Link>
-            </li>
-            <li>
-              <Link to="/following">Following</Link>
-            </li>
-            <li>
-              <Link to="/reports">Reports</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-          </ul>
-        </nav>
+        <NavBar />
         <main>
           <Switch>
             <Route exact path="/">

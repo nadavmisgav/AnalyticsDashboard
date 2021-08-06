@@ -17,6 +17,10 @@
     }
   }
 
+  .MuiFormControl-root {
+    justify-content: center !important;
+  }
+
   .MuiFormLabel-root {
     color: rgba($color-text, 0.6);
   }

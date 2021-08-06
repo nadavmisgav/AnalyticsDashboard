@@ -39,10 +39,17 @@ const Stock = ({ currency, name, symbol, target, amount, value, price }) => {
   );
 };
 
-const Stocks = ({ name, currency, stock_data, stocks, setStocks }) => {
+const Stocks = ({
+  name,
+  currency,
+  stock_data,
+  stocks,
+  setStocks,
+  disabled = false,
+}) => {
   let [openStockModal, setOpenStockModal] = useState(false);
 
-  const handleOpenStockModal = (event) => {
+  const handleOpenStockModal = (event: any) => {
     setOpenStockModal(true);
   };
 
@@ -59,6 +66,7 @@ const Stocks = ({ name, currency, stock_data, stocks, setStocks }) => {
             <Button
               variant="contained"
               size="medium"
+              disabled={disabled}
               startIcon={<AddIcon />}
               onClick={handleOpenStockModal}
             >
@@ -73,6 +81,7 @@ const Stocks = ({ name, currency, stock_data, stocks, setStocks }) => {
       </div>
       <AddTransaction
         open={openStockModal}
+        currency={currency}
         setOpen={setOpenStockModal}
         stocks={stocks}
         setStocks={setStocks}
